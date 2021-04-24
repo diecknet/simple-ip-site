@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ip#cmd</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="w3.css" />
+        <link rel="shortcut icon" type="image/png" href="/favicon.png" sizes="32x32" />
+        <script>
+            //<!-- 
+            function copy2Clipboard(whichElement) {
+                /*  copy2Clipboard() copies the textvalue from the specified element ('whichElement') into the clipboard
+                    using the modern clipboard API */
+                var copyText = document.getElementById(whichElement);
+                try {
+                    navigator.clipboard.writeText(copyText.value);
+                } catch(e) {
+                    console.log("Error while trying to copy to clipboard using modern Clipboard API. Falling back to legacy copy.")
+                    console.log(e);
+                    copy2ClipboardLegacy(whichElement);
+                }
+                /*  if the element already has the CSS class 'copyicon-success' applied, we toggle that class, wait for 10ms, toggle again. 
+                    toggling to re-initiate the css animation, if the same copy action is executed multiple times in a short amount of time */
+                if(copyText.classList.contains("copyicon-success")){
+                    copyText.classList.toggle("copyicon-success");
+                    setTimeout(function(){
+                        copyText.classList.toggle("copyicon-success");
+                    },10);
+                } else {
+                    // This happens the first time, the user initiates the copy2Clipboard function
+                    // if the element does not have the 'copyicon-success' CSS class applied, we add it
+                    copyText.classList.add("copyicon-success");
+                }
+            }
+
+            function copy2ClipboardLegacy(whichElement) {
+                /*  copy2ClipboardLegacy() copies the textvalue from the specified element 'whichElement' into the clipboard
+                    using the legacy 'document.execCommand("copy")' method
+                    this is used as a fallback, if copy2Clipboard fails. */
+                try {
+                    var copyText = document.getElementById(whichElement);
+                    copyText.select();
+                    copyText.setSelectionRange(0, 999);
+                    document.execCommand("copy");
+                } catch(e) {
+                    console.log("legacy copy to clipboard failed");
+                    console.log(e);
+                }
+            }
+            //-->
+            </script>
+    </head>
+<body class="w3-light-grey w3-monospace w3-animate-left">
+        <div class="w3-content">
+        <header class="w3-container w3-2019-evening-blue w3-center w3-card"><h1 class="w3-monospace">ip#cmd 📡💻</h1></header>
+        <section class="bg-mainsection w3-container w3-card w3-padding-16">
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <p onclick="copy2Clipboard('ipaddress');">
+                        <label>IP-Address</label>
+                        <input id="ipaddress" class="w3-input w3-border copyicon bg-mainsection" type="text" onclick="copy2Clipboard('ipaddress');" readonly />
+                    </p>
+                </div>
+                <div class="w3-half">
+                    <p>
+                        <label onclick="copy2Clipboard('location');">Location</label>
+                        <input id="location" class="w3-input w3-border copyicon bg-mainsection" type="text" onclick="copy2Clipboard('location');" readonly />
+                    </p>
+                </div>
+            </div>
+                <div class="w3-padding" id="tip"></div>
+                <script>
+                    //<!--
+                    /* Only show this tip, if javascript is enabled. */
+                    document.getElementById('tip').innerHTML='💡 <i class="w3-medium tip">Tip: Click on <span class="w3-medium" onclick="copy2Clipboard(\'ipaddress\');">IP-Address</span> or <span class="w3-medium" onclick="copy2Clipboard(\'location\');">Location</span> to copy the value into the clipboard.</i>'
+                    //-->
+                </script>
+        </section>
+        <footer class="w3-container w3-theme-d5 w3-padding preload-copyicon-success w3-card">Made with 💖 by diecknet | About</footer>
+    </div>
+    
+</body>
+</html>

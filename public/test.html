@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ip#cmd</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="w3.css" />
+    </head>
+<body onLoad="getIPinfo();" class="w3-light-grey w3-monospace w3-animate-left">
+        <div class="w3-content">
+        <header class="w3-container w3-2019-evening-blue w3-center w3-card"><h1 class="w3-monospace">ip#cmd 📡💻</h1></header>
+        <section class="bg-mainsection w3-container w3-card w3-padding-16">
+            <noscript><p class="w3-panel w3-red w3-border w3-padding-16 w3-large">This site requires JavaScript to query your external IP-Address from a REST API using AJAX. Forwarding to NoScript version in 10 seconds. You may also click here to go there.</p></noscript>
+            <noscript style="display:none;">
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <p><label>IP-Address:</label>
+                    <input id="ipaddress" class="w3-input w3-border copyicon bg-mainsection" type="text" placeholder="Loading with Javascript..." onclick="copy2Clipboard('ipaddress');" readonly /></p>
+                </div>
+                <div class="w3-half">
+                    <p><label>Location</label>
+                    <input id="location" class="w3-input w3-border copyicon bg-mainsection" type="text" placeholder="Loading with Javascript..." onclick="copy2Clipboard('location');" readonly />
+                </p>
+                </div>
+                </div>
+                <div class="w3-padding">💡 <i class="w3-medium tip">Tip: There is also a JavaScript version of this site, which has built-in <b>Copy to Clipboard</b> function.</i></div>
+            </noscript>
+        </section>
+        <footer class="w3-container w3-theme-d5 w3-padding preload-copyicon-success w3-card">Made with 💖 by diecknet | About</footer>
+    </div>
+    
+</body>
+</html>

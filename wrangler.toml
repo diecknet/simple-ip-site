@@ -1,0 +1,5 @@
+account_id = "83db5a5e0803d4425a3b676152a179e9"
+name = "cmd-ip"
+type = "webpack"
+workers_dev = true
+site = { bucket = "./public" }
