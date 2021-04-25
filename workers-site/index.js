@@ -6,11 +6,12 @@ import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler'
  * 2. we will return an error message on exception in your Response rather
  *    than the default 404.html page.
  */
-const DEBUG = true
+const DEBUG = false
 
+/* cloudflare event listener + handler */
 addEventListener('fetch', function(event) {
     try {
-        const response = handleEvent(event)
+        const response = handleEvent(event) // pass event to handleEvent()
         event.respondWith(response)
     } catch (e) {
         if (DEBUG) {
@@ -47,24 +48,24 @@ switch (pathname) {
         return new Response(null, { status: 204 })
         break;
     default:
-        //test return new Response("hello world", {status:200})
         
         try {
+            // get requested resource from KV cache
             const page = await getAssetFromKV(event, options)
             // allow headers to be altered
             const response = new Response(page.body, page)
-        
+            // add some headers
             response.headers.set('X-XSS-Protection', '1; mode=block')
             response.headers.set('X-Content-Type-Options', 'nosniff')
             response.headers.set('X-Frame-Options', 'DENY')
             response.headers.set('Referrer-Policy', 'strict-origin')
             response.headers.set('Permissions-Policy', 'none')
             
-            if(pathname=="/" || pathname=="/index.html") {
+            // if the main page / or /index is requested, we apply a HTMLRewriter to inject the IP-Address and location info
+            if(pathname == '/' || pathname == '/index.html') {
                let ipInfo = getClientIPInfo(request)
                return new HTMLRewriter().on('input', new ElementHandler(ipInfo)).transform(response)
             }
-
             return response
         } catch(e) {
             // if an error is thrown try to serve the asset at 404.html
@@ -93,8 +94,8 @@ switch (pathname) {
         location = ((request.cf || {}).city)+', '+location
     }
     const clientIPInfo = {
-      /* get client ip address by Cloudflare header "CF-Connecting-IP" */
-      ipaddress: request.headers.get("CF-Connecting-IP"),
+      /* get client ip address by Cloudflare header 'CF-Connecting-IP' */
+      ipaddress: request.headers.get('CF-Connecting-IP'),
       /* location of client ip address */
       location: location
     }
