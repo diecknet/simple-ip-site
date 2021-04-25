@@ -43,9 +43,6 @@ if (DEBUG) {
     }
 
 switch (pathname) {
-    case '/api':
-        return respondClientIPInfo(request)
-        break;
     case '/robots.txt':
         return new Response(null, { status: 204 })
         break;
@@ -103,38 +100,6 @@ switch (pathname) {
     }
     return clientIPInfo
   }
-  
-/**
- * Responds with the client IP Address and location info.
- * @param {Request} request
- * @returns {Response}
- */
-function respondClientIPInfo(request) {
-const { headers, cf } = request
-
-var allowedOrigin="https://ip.diecknet.de";
-if(headers.get('Origin')) {
-if(
-    /* if the HTTP Origin Header ends with one of our own Domains, return that value as 'access-control-allow-origin' */
-    headers.get('Origin').endsWith(".cmd-lvcw.pages.dev") ||
-    headers.get('Origin').endsWith(".di1.workers.dev")
-){
-    allowedOrigin = headers.get('Origin');
-} /* no-else needed, default allowed origin was set before */
-
-}
-/* call getClientIPInfo() to gather client IP data */
-const clientIPInfo = getClientIPInfo(request)
-
-const jsonresponse = JSON.stringify(clientIPInfo);
-return new Response(jsonresponse, {
-    status: 200,
-    headers: {
-    'Content-Type': 'application/json;charset=UTF-8',
-    'Access-Control-Allow-Origin': allowedOrigin
-    }
-})
-}
 
 class ElementHandler {
     constructor(ipInfo) {
