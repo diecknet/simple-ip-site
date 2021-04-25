@@ -1,4 +1,7 @@
 name = "cmd-ip"
 type = "javascript"
 workers_dev = true
-site = { bucket = "./public" }
+
+[site]
+bucket = "./public"
+entry-point = "./workers_site"
