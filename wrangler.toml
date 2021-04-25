@@ -1,4 +1,4 @@
 name = "cmd-ip"
-type = "webpack"
+type = "javascript"
 workers_dev = true
 site = { bucket = "./public" }
