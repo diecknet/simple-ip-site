@@ -1,5 +1,5 @@
 name = "cmd-ip"
-type = "javascript"
+type = "webpack"
 workers_dev = true
 
 [site]
