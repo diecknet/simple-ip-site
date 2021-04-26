@@ -1,3 +1,4 @@
+account_id = "${{ secrets.CF_ACCOUNT_ID }}"
 name = "cmd-ip"
 type = "webpack"
 workers_dev = true
