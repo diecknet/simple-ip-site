@@ -2,7 +2,4 @@ account_id = "${{ secrets.CF_ACCOUNT_ID }}"
 name = "cmd-ip"
 type = "webpack"
 workers_dev = true
-
-[site]
-bucket = "./public"
-entry-point = "./workers_site"
+site = { bucket = "./public" }
