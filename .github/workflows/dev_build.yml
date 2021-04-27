@@ -14,5 +14,8 @@ jobs:
       - name: Build with Wrangler
         uses: cloudflare/wrangler-action@1.3.0
         with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
           publish: false
           preCommands: wrangler build
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
