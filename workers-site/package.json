@@ -1,9 +1,11 @@
 {
+  "name": "simple-ip-site-worker",
   "private": true,
   "version": "1.0.0",
-  "description": "A template for kick starting a Cloudflare Workers project",
+  "description": "A simple IP site for Cloudflare Workers",
   "main": "index.js",
   "license": "MIT",
+  "homepage": "https://github.com/diecknet/simple-ip-site",
   "dependencies": {
     "@cloudflare/kv-asset-handler": "~0.1.1"
   }
