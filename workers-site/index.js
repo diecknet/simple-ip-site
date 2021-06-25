@@ -63,8 +63,15 @@ switch (pathname) {
             
             // if the main page / or /index is requested, we apply a HTMLRewriter to inject the IP-Address and location info
             if(pathname == '/' || pathname == '/index.html') {
-               let ipInfo = getClientIPInfo(request)
-               return new HTMLRewriter().on('input', new ElementHandler(ipInfo)).transform(response)
+                if(!DEBUG) {
+                    options.cacheControl = {
+                        browserTTL: 0,
+                        edgeTTL: 0,
+                        bypassCache: false
+                    }
+                }
+                let ipInfo = getClientIPInfo(request)
+                return new HTMLRewriter().on('input', new ElementHandler(ipInfo)).transform(response)
             }
             return response
         } catch(e) {
