@@ -6,7 +6,7 @@ import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler'
  * 2. we will return an error message on exception in your Response rather
  *    than the default 404.html page.
  */
-const DEBUG = false
+const DEBUG = true
 
 /* cloudflare event listener + handler */
 addEventListener('fetch', function(event) {
@@ -71,7 +71,11 @@ switch (pathname) {
                     }
                 }
                 let ipInfo = getClientIPInfo(request)
-                return new HTMLRewriter().on('input', new ElementHandler(ipInfo)).transform(response)
+                let rewrittenResponse = new HTMLRewriter()
+                    .on('input', new ElementHandler(ipInfo))
+                    .on('h1', new ElementHandler())
+                    .transform(response)
+                return rewrittenResponse
             }
             return response
         } catch(e) {
@@ -111,26 +115,40 @@ switch (pathname) {
   
 /* handles elements to inject values using HTMLRewriter */
 class ElementHandler {
-    constructor(ipInfo) {
+    constructor(ipInfo=null) {
         this.ipInfo = ipInfo
     }
     element(element) {
         // get element id
         const elementid = element.getAttribute('id')
-        
+        // some debug output
         if(DEBUG) { 
-            console.log('Incoming element: ${element.tagName} - id ${elementid}')
+            console.log(`Incoming element: ${element.tagName} - id ${elementid}`)
         }
-        // depending on which element-id we have, put ipaddress or location in
-        switch(elementid) {
-            case 'ipaddress':
-                // set value of ipaddress-field in HTML
-                element.setAttribute('value',this.ipInfo.ipaddress)
-                break;
-            case 'location':
-                // set value of location-field in HTML
-                element.setAttribute('value',this.ipInfo.location)
-                break;
+        switch(element.tagName) {
+            case 'h1':
+                if(DEBUG) {
+                    element.append(' DEBUG MODE')
+                    element.setAttribute('style','color: #ff0000')
+                }
+                if(ENVIRONMENT==="dev") {
+                    element.append(' { DEV ENVIRONMENT }')
+                    element.setAttribute('style','color: #eb7171')
+                }
+            break;
+            case 'input':
+                // depending on which element-id we have, put ipaddress or location in
+                switch(elementid) {
+                    case 'ipaddress':
+                        // set value of ipaddress-field in HTML
+                        element.setAttribute('value',this.ipInfo.ipaddress)
+                        break;
+                    case 'location':
+                        // set value of location-field in HTML
+                        element.setAttribute('value',this.ipInfo.location)
+                        break;
+                }
+            break;
         }
     }
 }  

@@ -2,6 +2,8 @@ name = "simple-ip-site"
 type = "webpack"
 workers_dev = true
 site = { bucket = "./public" }
+vars = { ENVIRONMENT = "production" }
 
 [env.dev]
 name = "simple-ip-site-dev"
+vars = { ENVIRONMENT = "dev" }
