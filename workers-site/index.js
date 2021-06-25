@@ -36,12 +36,19 @@ const { url } = request
 const { host, pathname } = new URL(url)
 let options = {}
 
-if (DEBUG) {
-    // customize caching
+if(pathname == '/' || pathname == '/index.html') {
+    // bypass cache for main page
+    options.cacheControl = {
+        browserTTL: 0,
+        edgeTTL: 0,
+        bypassCache: true
+    }
+} else if (DEBUG) {
+    // bypass cache if in debug mode
     options.cacheControl = {
         bypassCache: true,
     }
-    }
+}
 
 switch (pathname) {
     case '/robots.txt':
@@ -63,12 +70,6 @@ switch (pathname) {
             
             // if the main page / or /index is requested, we apply a HTMLRewriter to inject the IP-Address and location info
             if(pathname == '/' || pathname == '/index.html') {
-                options.cacheControl = {
-                    browserTTL: 0,
-                    edgeTTL: 0,
-                    bypassCache: true
-                }
-                response.headers.set('Cache-Control', 'no-store')
                 let ipInfo = getClientIPInfo(request)
                 let rewrittenResponse = new HTMLRewriter()
                     .on('input', new ElementHandler(ipInfo))
