@@ -68,6 +68,7 @@ switch (pathname) {
                     edgeTTL: 0,
                     bypassCache: true
                 }
+                response.headers.set('Cache-Control', 'no-store')
                 let ipInfo = getClientIPInfo(request)
                 let rewrittenResponse = new HTMLRewriter()
                     .on('input', new ElementHandler(ipInfo))
