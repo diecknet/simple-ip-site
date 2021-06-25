@@ -2,3 +2,6 @@ name = "simple-ip-site"
 type = "webpack"
 workers_dev = true
 site = { bucket = "./public" }
+
+[env.dev]
+name = "simple-ip-site-dev"
