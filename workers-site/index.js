@@ -6,7 +6,7 @@ import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler'
  * 2. we will return an error message on exception in your Response rather
  *    than the default 404.html page.
  */
-const DEBUG = true
+const DEBUG = false
 
 /* cloudflare event listener + handler */
 addEventListener('fetch', function(event) {
@@ -69,6 +69,7 @@ switch (pathname) {
                         edgeTTL: 0,
                         bypassCache: false
                     }
+                    console.log("non debug cache option activated!")
                 }
                 let ipInfo = getClientIPInfo(request)
                 let rewrittenResponse = new HTMLRewriter()
