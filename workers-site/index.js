@@ -63,13 +63,10 @@ switch (pathname) {
             
             // if the main page / or /index is requested, we apply a HTMLRewriter to inject the IP-Address and location info
             if(pathname == '/' || pathname == '/index.html') {
-                if(!DEBUG) {
-                    options.cacheControl = {
-                        browserTTL: 0,
-                        edgeTTL: 0,
-                        bypassCache: false
-                    }
-                    console.log("non debug cache option activated!")
+                options.cacheControl = {
+                    browserTTL: 0,
+                    edgeTTL: 0,
+                    bypassCache: true
                 }
                 let ipInfo = getClientIPInfo(request)
                 let rewrittenResponse = new HTMLRewriter()
