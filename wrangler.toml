@@ -1,6 +1,7 @@
 name = "simple-ip-site"
 type = "webpack"
 workers_dev = true
+compatibility_date = "2021-10-27"
 site = { bucket = "./public" }
 vars = { ENVIRONMENT = "production" }
 
