@@ -5,8 +5,9 @@ on:
     branches:
       - main
     paths-ignore:
-      - '*.md'
-      - '.github/workflows/*'
+      - "*.md"
+      - ".github/workflows/*"
+      - "alt.simpleip.de/*"
 
 jobs:
   deploy:

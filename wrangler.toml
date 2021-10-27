@@ -4,6 +4,7 @@ workers_dev = true
 compatibility_date = "2021-10-27"
 site = { bucket = "./public" }
 vars = { ENVIRONMENT = "production" }
+exclude = ["alt.simpleip.de"]
 
 [env.dev]
 name = "simple-ip-site-dev"
