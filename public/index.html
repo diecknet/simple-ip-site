@@ -81,8 +81,10 @@
         xhttp.onreadystatechange = function () {
           // request is technically OK, if the request is "done" (readyState == 4) and the HTTP Response Code is "OK" (status == 200)
           if (this.readyState == 4 && this.status == 200) {
-            // trying to validate the result
-            var responseText = String(this.responseText).substr(0, 45);
+            // trying to validate the result, encode URI characters just to be sure
+            var responseText = encodeURI(
+              String(this.responseText).substr(0, 45)
+            );
             console.log(responseText);
 
             // trying to fill in IP address field on site
