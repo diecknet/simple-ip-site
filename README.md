@@ -13,7 +13,7 @@ This is a simple serverside/serverless JavaScript website to plainly present the
 - ✅ Open Source - feel free to host it yourself and change according to your needs
 - ✅ IPv4 and IPv6 support
 - ✅ Simple, clean and responsive layout
-- ✅ Works without JavaScript
+- ✅ Works without (client-side) JavaScript
 
 ### Live version / Demo
 
@@ -46,6 +46,10 @@ let location = (request.cf || {}).country
 /* get client ip address by Cloudflare header 'CF-Connecting-IP' */
       ipaddress: request.headers.get('CF-Connecting-IP')
 ```
+
+### Getting the visitor's IP Address with a PHP script
+
+Since Cloudflare Workers has no method to force IPv4 or IPv6 usage, I've put **[a small PHP script](/alt.simpleip.de/index.php)** on another webhost. The webhost is reachable with dedicated hostnames for IPv4 and IPv6. The script is just outputting the IP-Address of the client. The website fetches the info from the PHP script using client-side JavaScript/AJAX. **So if the website visitor has JavaScript disabled, the site will only show the primary IP-Address determined by Cloudflare**.
 
 ### Build status
 
