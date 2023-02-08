@@ -8,6 +8,7 @@ on:
       - "*.md"
       - ".github/workflows/*"
       - "alt.simpleip.de/*"
+  workflow_dispatch:
 
 jobs:
   deploy:
