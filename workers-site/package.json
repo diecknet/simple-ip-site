@@ -7,6 +7,6 @@
   "license": "MIT",
   "homepage": "https://github.com/diecknet/simple-ip-site",
   "dependencies": {
-    "@cloudflare/kv-asset-handler": "0.2.0"
+    "@cloudflare/kv-asset-handler": "0.3.0"
   }
 }
